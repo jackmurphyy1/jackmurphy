@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CFD Project — Jack Murphy</title>
+<style>
+/* =========================================================
+   GLOBAL COLORS + MAXIMUM PAGE WIDTH
+   Change --max to make the entire page wider or narrower.
+   ========================================================= */
+:root{
+  --paper:#f7f6f2;
+  --ink:#111111;
+  --muted:#66645f;
+  --line:#d9d6cf;
+  --accent:#2457ff;
+  --white:#ffffff;
+  --max:1060px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+img,svg{display:block;max-width:100%}
+/* =========================================================
+   PAGE WIDTH
+   This controls the width of the header, content, and border lines.
+   ========================================================= */
+.shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+/* =========================================================
+   TOP NAVIGATION / HEADER BORDER
+   Change border-bottom thickness here, for example 1px to 2px.
+   ========================================================= */
+.site-header{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+}
+.site-name{font-size:17px;font-weight:650;letter-spacing:-.025em}
+.site-nav{display:flex;gap:24px;font-size:13px}
+.site-nav a{border-bottom:1px solid transparent;padding:3px 0}
+.site-nav a:hover,.site-nav a:focus-visible{border-color:var(--ink)}
+.serif{font-family:Georgia,"Times New Roman",serif}
+/* =========================================================
+   FOOTER + FOOTER BORDER
+   ========================================================= */
+.site-footer{
+  border-top:1px solid var(--line);
+  padding:18px 0 24px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:680px){
+  .shell{width:calc(100% - 28px)}
+  .site-header{min-height:58px}
+  .site-nav{gap:17px}
+  .site-footer{flex-direction:column;gap:5px}
+}
+
+/* =========================================================
+   PAGE SPACING
+   Change these values to move the page content up or down.
+   ========================================================= */
+.project-page{padding:46px 0 66px}
+/* =========================================================
+   TITLE AREA / TITLE COLUMN WIDTH
+   grid-template-columns controls how much width the title receives.
+   Use grid-template-columns:1fr; for a full-width title.
+   border-bottom controls the line beneath the title.
+   ========================================================= */
+.project-top{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(280px,.7fr);
+  gap:clamp(36px,7vw,88px);
+  align-items:end;
+  padding-bottom:34px;
+  border-bottom:1px solid var(--line);
+}
+.project-category{
+  margin-bottom:13px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+/* =========================================================
+   TITLE TEXT
+   font-size controls title size.
+   line-height controls spacing if the title wraps.
+   ========================================================= */
+.project-top h1{
+  margin:0;
+  font-size:clamp(42px,6vw,68px);
+  line-height:.94;
+  letter-spacing:-.06em;
+  font-weight:650;
+}
+.project-lede{
+  margin:0 0 4px;
+  color:#47443f;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:16px;
+  line-height:1.55;
+}
+/* =========================================================
+   DESCRIPTION LAYOUT + DESCRIPTION BORDER
+   The first grid value controls the width of the Description label.
+   ========================================================= */
+.project-description{
+  display:grid;
+  grid-template-columns:140px minmax(0,1fr);
+  gap:36px;
+  padding:32px 0 36px;
+  border-bottom:1px solid var(--line);
+}
+.section-label{
+  padding-top:4px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+/* =========================================================
+   DESCRIPTION TEXT WIDTH
+   Increase max-width for longer lines; reduce it for shorter lines.
+   ========================================================= */
+.project-description-copy{max-width:735px}
+.project-description-copy p{
+  margin:0 0 13px;
+  color:#34322f;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;
+  line-height:1.62;
+}
+.project-description-copy p:last-child{margin-bottom:0}
+.project-hero{
+  width:min(760px,100%);
+  aspect-ratio:16/7;
+  margin:32px auto 0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#e5e1da;
+}
+.project-hero svg,.project-hero img{width:100%;height:100%;object-fit:cover}
+/* =========================================================
+   PHOTO GALLERY WIDTH
+   This controls the width of the complete photo gallery.
+   ========================================================= */
+.gallery-section{padding:34px 0 0}
+.gallery-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:17px;
+}
+.gallery-head p{
+  max-width:600px;
+  margin:0;
+  color:var(--muted);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;
+  line-height:1.5;
+}
+/* =========================================================
+   PHOTOS PER ROW
+   repeat(4, ...) means four photos per row.
+   Change 4 to 3, 2, or another number.
+   gap controls the spacing between photos.
+   ========================================================= */
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+.gallery-item{margin:0}
+/* =========================================================
+   PHOTO BORDER / PHOTO SHAPE
+   border controls border thickness and color.
+   aspect-ratio controls the shape of the photo box.
+   ========================================================= */
+.gallery-photo{
+  position:relative;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#e7e4de;
+}
+/* =========================================================
+   IMAGE FIT INSIDE THE PHOTO BORDER
+   contain shows the whole image.
+   cover fills the border but may crop the image.
+   ========================================================= */
+.gallery-photo img{width:100%;height:100%;object-fit:cover}
+.gallery-item figcaption{
+  margin-top:7px;
+  color:var(--muted);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:12px;
+  line-height:1.45;
+}
+.compact-note{
+  margin-top:30px;
+  padding:17px 19px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.42);
+  color:var(--muted);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;
+  line-height:1.5;
+}
+@media(max-width:760px){
+  .project-page{padding:38px 0 54px}
+  .project-top{grid-template-columns:1fr;gap:20px;padding-bottom:27px}
+  .project-top h1{font-size:48px}
+  .project-description{grid-template-columns:1fr;gap:13px;padding:26px 0 30px}
+  .section-label{padding-top:0}
+  .gallery-head{display:block}
+  .gallery-head p{margin-top:8px}
+}
+@media(max-width:540px){
+  .project-top h1{font-size:41px}
+  .gallery-grid{grid-template-columns:1fr}
+}
+
+
+/* Preserve complete screenshots and size each image around its native shape. */
+.gallery-grid{align-items:start}
+.gallery-photo{
+  display:grid;
+  place-items:center;
+  background:#fff;
+}
+.gallery-photo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.gallery-item:nth-child(1) .gallery-photo{aspect-ratio:1120/962}
+.gallery-item:nth-child(2) .gallery-photo{aspect-ratio:1092/930}
+.gallery-item:nth-child(3) .gallery-photo{aspect-ratio:1086/920}
+.gallery-item:nth-child(4){grid-column:1/-1}
+.gallery-item:nth-child(4) .gallery-photo{aspect-ratio:1764/638}
+.gallery-item:nth-child(5){grid-column:1/-1;width:min(500px,100%);justify-self:center}
+.gallery-item:nth-child(5) .gallery-photo{aspect-ratio:764/1074}
+.gallery-item:nth-child(6){grid-column:1/-1;width:min(760px,100%);justify-self:center}
+.gallery-item:nth-child(6) .gallery-photo{aspect-ratio:1126/832}
+
+
+/* Keep the screenshot gallery compact relative to the text. */
+.gallery-section{
+  width:min(700px,100%);
+  margin-left:auto;
+  margin-right:auto;
+}
+.gallery-item:nth-child(4){
+  width:min(600px,100%);
+  justify-self:center;
+}
+.gallery-item:nth-child(5){
+  width:min(340px,100%);
+}
+.gallery-item:nth-child(6){
+  width:min(520px,100%);
+}
+
+
+/* Four compact screenshots per row on desktop. */
+.gallery-section{
+  width:min(860px,100%);
+  margin-left:auto;
+  margin-right:auto;
+}
+.gallery-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.gallery-item,
+.gallery-item:nth-child(4),
+.gallery-item:nth-child(5),
+.gallery-item:nth-child(6){
+  grid-column:auto;
+  width:100%;
+  justify-self:stretch;
+}
+.gallery-photo{
+  aspect-ratio:4/3 !important;
+}
+.gallery-photo img{
+  object-fit:contain;
+}
+@media(max-width:760px){
+  .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:440px){
+  .gallery-grid{grid-template-columns:1fr}
+}
+
+
+/* =========================================================
+   INDIVIDUAL PHOTO CONTROLS
+
+   Each photo in the HTML has:
+   style="--photo-ratio:4 / 3;
+          --photo-fit:contain;
+          --photo-position:center;"
+
+   Common ratios:
+   1 / 1   = square
+   4 / 3   = landscape
+   16 / 9  = wide landscape
+   3 / 4   = portrait
+   9 / 16  = tall portrait
+
+   These rules let each photo use a different shape.
+   ========================================================= */
+.gallery-photo{
+  aspect-ratio:var(--photo-ratio,4 / 3) !important;
+}
+.gallery-photo img{
+  object-fit:var(--photo-fit,contain) !important;
+  object-position:var(--photo-position,center) !important;
+}
+
+</style>
+</head>
+<body>
+<!-- ========================================================
+     PAGE HEADER / NAVIGATION
+     ======================================================== -->
+<header class="shell site-header">
+  <a class="site-name" href="../index.html">Jack Murphy</a>
+  <nav class="site-nav"><a href="../index.html#projects-title">Home</a><a href="../resume.html" target="_blank" rel="noopener">Résumé</a></nav>
+</header>
+<main class="shell project-page">
+  <!-- ========================================================
+     TITLE
+     Edit the words inside <h1>.
+     Title width and font size are labeled in the CSS above.
+     ======================================================== -->
+  <section class="project-top">
+    <div><h1>Introductory CFD</h1></div>
+  </section>
+  <!-- ========================================================
+     DESCRIPTION
+     Edit the paragraphs inside this section.
+     ======================================================== -->
+  <section class="project-description">
+    <div class="section-label">Description</div>
+    <div class="project-description-copy">
+      <p>I conducted a CFD simulation to analyze the aerodynamics of a Formula 1 nose 
+        cone traveling at 260 km/h. With no previous SolidWorks experience, I taught 
+        myself how to use both SolidWorks and its Flow Simulation package.</p>
+
+      <p>The set up and simulation was computed on half of the nose cone (to save time)
+        and the results were multiplied by 2 due to the symmetric geometry. The 
+        nose-cone assembly contained four sub-wings, so the idea was to calculate
+        the downforce from each wing and add them togther to get a combined result.</p>
+
+      <p>Although the results did not align with my original hypothesis, 
+        I am still grateful I took the time to learn about this as I gained exposure to
+        the world around CFD setup and analysis.</p>
+    </div>
+
+  </section>
+  <!-- ========================================================
+     PHOTO GALLERY
+     Gallery width, columns, spacing, and borders are labeled in CSS.
+     Each photo has its own editable ratio and fit settings below.
+     ======================================================== -->
+  <section class="gallery-section">
+    <div class="gallery-grid">
+
+      <figure class="gallery-item">
+        <!-- PHOTO 1
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:1120 / 962; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_1.png" alt="Close view of flow trajectories around the nose cone wings"></div>
+       <!-- <figcaption>Close view of the simulated flow trajectories around the wing elements.</figcaption> -->
+      </figure>
+
+      <figure class="gallery-item">
+        <!-- PHOTO 2
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:1092 / 930; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_2.png" alt="Front perspective of airflow through the wing stack"></div>
+      </figure>
+
+      <figure class="gallery-item">
+        <!-- PHOTO 3
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:1086 / 920; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_3.png" alt="Side perspective of the simulated airflow"></div>
+      </figure>
+
+      <figure class="gallery-item">
+        <!-- PHOTO 4
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:1764 / 638; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_4.png" alt="Python plot comparing velocity and wing area"></div>
+      </figure>
+
+      <figure class="gallery-item">
+        <!-- PHOTO 5
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:764 / 1074; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_5.png" alt="Python code used to load and organize CFD results"></div>
+      </figure>
+      
+      <figure class="gallery-item">
+        <!-- PHOTO 6
+             Edit --photo-ratio to change this border's shape.
+             Edit --photo-fit: contain or cover.
+             Edit src="..." on the image to change the file.
+        -->
+        <div class="gallery-photo" style="--photo-ratio:1126 / 832; --photo-fit:contain; --photo-position:center;"><img src="../assets/cfd/CFD_6.png" alt="Python Bernoulli calculation for pressure contribution"></div>
+      </figure>
+    </div>
+  </section>
+</main>
+<!-- ========================================================
+     FOOTER
+     ======================================================== -->
+<footer class="shell site-footer"><a href="../index.html#projects-title">← Selected projects</a><span>© Jack Murphy 2026</span></footer>
+</body>
+</html>
