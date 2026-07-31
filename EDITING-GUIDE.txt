@@ -1,0 +1,42 @@
+PORTFOLIO EDITING GUIDE
+
+HTML comments identify page content:
+  <!-- TITLE -->
+  <!-- DESCRIPTION -->
+  <!-- PHOTO GALLERY -->
+  <!-- PHOTO 1 -->
+  <!-- PAGE HEADER / NAVIGATION -->
+
+CSS comments identify visual settings:
+  /* TITLE AREA / TITLE COLUMN WIDTH */
+  /* TITLE TEXT */
+  /* PHOTO GALLERY WIDTH */
+  /* PHOTOS PER ROW */
+  /* PHOTO BORDER / PHOTO SHAPE */
+  /* IMAGE FIT INSIDE THE PHOTO BORDER */
+
+INDIVIDUAL PHOTO EXAMPLE
+
+<div class="gallery-photo"
+     style="--photo-ratio:3 / 4;
+            --photo-fit:contain;
+            --photo-position:center;">
+
+Useful values:
+  --photo-ratio: 1 / 1, 4 / 3, 16 / 9, 3 / 4, or 9 / 16
+  --photo-fit: contain or cover
+  --photo-position: center, top, bottom, left, or right
+
+PHOTO BORDER THICKNESS
+
+Find:
+  border:1px solid var(--line);
+
+Change 1px to 2px, 3px, etc.
+
+PHOTOS PER ROW
+
+Find:
+  grid-template-columns:repeat(4,minmax(0,1fr));
+
+Change 4 to another number.

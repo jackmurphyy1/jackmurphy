@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jack Murphy résumé">
+  <title>Résumé — Jack Murphy</title>
+  <style>
+    /* =========================================================
+   GLOBAL COLORS + MAXIMUM PAGE WIDTH
+   Change --max to make the entire page wider or narrower.
+   ========================================================= */
+:root{
+      --paper:#f7f6f2;
+      --ink:#111111;
+      --muted:#66645f;
+      --line:#d9d6cf;
+      --accent:#2457ff;
+      --max:1060px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,
+    body{
+      width:100%;
+      min-height:100%;
+      margin:0;
+    }
+
+    body{
+      display:flex;
+      flex-direction:column;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    /* =========================================================
+   PAGE WIDTH
+   This controls the width of the header, content, and border lines.
+   ========================================================= */
+.shell{
+      width:min(var(--max),calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    /* =========================================================
+   TOP NAVIGATION / HEADER BORDER
+   Change border-bottom thickness here, for example 1px to 2px.
+   ========================================================= */
+.site-header{
+      min-height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .site-name{
+      font-size:17px;
+      font-weight:650;
+      letter-spacing:-.025em;
+    }
+
+    .site-nav{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      font-size:13px;
+    }
+
+    .site-nav a{
+      padding:3px 0;
+      border-bottom:1px solid transparent;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible{
+      border-color:var(--ink);
+    }
+
+    .open-pdf{
+      color:var(--accent);
+      border-bottom-color:var(--accent) !important;
+    }
+
+    /* =========================================================
+   RESUME VIEWER WIDTH
+   Change 1180px to make the embedded PDF wider or narrower.
+   ========================================================= */
+.resume-main{
+      flex:1;
+      width:min(1180px,calc(100% - 40px));
+      margin:22px auto 30px;
+      display:flex;
+      flex-direction:column;
+      min-height:calc(100vh - 118px);
+    }
+
+    .resume-heading{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:13px;
+    }
+
+    .resume-heading h1{
+      margin:0;
+      font-size:18px;
+      font-weight:600;
+      letter-spacing:-.02em;
+    }
+
+    .resume-heading p{
+      margin:0;
+      color:var(--muted);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:13px;
+      font-style:italic;
+    }
+
+    /* =========================================================
+   PDF BORDER + VIEWER HEIGHT
+   border controls the visible line around the PDF.
+   min-height controls the viewer height.
+   ========================================================= */
+.pdf-frame{
+      flex:1;
+      min-height:760px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+
+    .pdf-frame object,
+    .pdf-frame iframe{
+      display:block;
+      width:100%;
+      height:100%;
+      min-height:760px;
+      border:0;
+      background:#fff;
+    }
+
+    .pdf-fallback{
+      min-height:760px;
+      display:grid;
+      place-items:center;
+      padding:40px;
+      text-align:center;
+    }
+
+    .pdf-fallback-inner{
+      max-width:520px;
+    }
+
+    .pdf-fallback h2{
+      margin:0 0 12px;
+      font-size:23px;
+      letter-spacing:-.03em;
+    }
+
+    .pdf-fallback p{
+      margin:0 0 20px;
+      color:var(--muted);
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:15px;
+      line-height:1.65;
+    }
+
+    .pdf-fallback a{
+      display:inline-block;
+      padding-bottom:3px;
+      color:var(--accent);
+      border-bottom:1px solid var(--accent);
+      font-size:14px;
+    }
+
+    @media(max-width:680px){
+      .shell,
+      .resume-main{width:calc(100% - 24px)}
+
+      .site-header{min-height:58px}
+      .site-nav{gap:15px}
+
+      .resume-main{
+        margin-top:12px;
+        min-height:calc(100vh - 82px);
+      }
+
+      .resume-heading{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:4px;
+      }
+
+      .pdf-frame,
+      .pdf-frame object,
+      .pdf-frame iframe,
+      .pdf-fallback{
+        min-height:calc(100vh - 132px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- PAGE HEADER / NAVIGATION -->
+  <header class="shell site-header">
+    <a class="site-name" href="index.html">Jack Murphy</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="index.html#projects-title">Home</a>
+      <a class="open-pdf" href="resume.pdf" target="_blank" rel="noopener">Open PDF ↗</a>
+    </nav>
+  </header>
+
+  <main class="resume-main">
+    <!-- RESUME TITLE -->
+    <div class="resume-heading">
+      <h1>Résumé</h1>
+      <p>Jack Murphy · Mechanical Engineering</p>
+    </div>
+
+    <!-- PDF VIEWER / PDF BORDER -->
+    <section class="pdf-frame" aria-label="Embedded résumé PDF">
+      <object data="Jack Murphy Resume.pdf" type="application/pdf">
+        <iframe
+          src="resume.pdf#view=FitH&amp;toolbar=1&amp;navpanes=0"
+          title="Jack Murphy résumé PDF">
+        </iframe>
+
+        <div class="pdf-fallback">
+          <div class="pdf-fallback-inner">
+            <h2>Résumé PDF</h2>
+            <p>
+              The PDF could not be displayed inside this browser. Open it directly using the link below.
+            </p>
+            <a href="Jack Murphy Resume.pdf" target="_blank" rel="noopener">Open résumé PDF →</a>
+          </div>
+        </div>
+      </object>
+    </section>
+  </main>
+</body>
+</html>

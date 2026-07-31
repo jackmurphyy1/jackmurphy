@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Jack Murphy mechanical engineering portfolio">
+<title>Jack Murphy</title>
+<style>
+/* =========================================================
+   GLOBAL COLORS + MAXIMUM PAGE WIDTH
+   Change --max to make the entire page wider or narrower.
+   ========================================================= */
+:root{
+  --paper:#f7f6f2;
+  --ink:#111111;
+  --muted:#66645f;
+  --line:#d9d6cf;
+  --accent:#2457ff;
+  --white:#ffffff;
+  --max:1060px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+img,svg{display:block;max-width:100%}
+/* =========================================================
+   PAGE WIDTH
+   This controls the width of the header, content, and border lines.
+   ========================================================= */
+.shell{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+/* =========================================================
+   TOP NAVIGATION / HEADER BORDER
+   Change border-bottom thickness here, for example 1px to 2px.
+   ========================================================= */
+.site-header{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+}
+.site-name{font-size:17px;font-weight:650;letter-spacing:-.025em}
+.site-nav{display:flex;gap:24px;font-size:13px}
+.site-nav a{border-bottom:1px solid transparent;padding:3px 0}
+.site-nav a:hover,.site-nav a:focus-visible{border-color:var(--ink)}
+.serif{font-family:Georgia,"Times New Roman",serif}
+/* =========================================================
+   FOOTER + FOOTER BORDER
+   ========================================================= */
+.site-footer{
+  border-top:1px solid var(--line);
+  padding:18px 0 24px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:680px){
+  .shell{width:calc(100% - 28px)}
+  .site-header{min-height:58px}
+  .site-nav{gap:17px}
+  .site-footer{flex-direction:column;gap:5px}
+}
+
+/* =========================================================
+   HOMEPAGE COLUMN WIDTHS
+   These two grid values control the About and Projects columns.
+   ========================================================= */
+.home{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);
+  gap:clamp(46px,8vw,105px);
+  align-items:start;
+  padding:54px 0 72px;
+}
+.section-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:5px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+.intro h1{
+  margin:0 0 23px;
+  max-width:520px;
+  font-size:clamp(35px,4.5vw,55px);
+  line-height:1;
+  letter-spacing:-.055em;
+  font-weight:650;
+}
+.home-copy{max-width:540px;color:#393733}
+.home-copy p{
+  margin:0 0 14px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:16px;
+  line-height:1.62;
+}
+.home-links{display:flex;gap:18px;margin-top:24px;font-size:13px}
+.home-links a{padding-bottom:2px;border-bottom:1px solid var(--ink)}
+.projects-panel{padding-top:1px}
+.projects-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:11px;
+}
+.projects-heading h2{margin:0;font-size:13px;font-weight:600;letter-spacing:-.01em}
+.projects-heading span{color:var(--muted);font-size:11px}
+.project-list{border-top:1px solid var(--line)}
+.project-item{border-bottom:1px solid var(--line)}
+/* =========================================================
+   PROJECT ROW COLUMNS
+   These values control the project title, year, and plus sign.
+   ========================================================= */
+.project-trigger{
+  width:100%;
+  border:0;
+  background:transparent;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:15px;
+  padding:17px 0;
+  text-align:left;
+  cursor:pointer;
+}
+.project-trigger:hover .project-title,
+.project-trigger:focus-visible .project-title{color:var(--accent)}
+.project-title{font-size:17px;font-weight:550;letter-spacing:-.025em;transition:color .18s ease}
+.project-year{color:var(--muted);font-family:Georgia,"Times New Roman",serif;font-size:12px;font-style:italic}
+.project-mark{width:18px;text-align:center;color:var(--muted);font-size:17px;line-height:1;transition:transform .2s ease}
+.project-item.open .project-mark{transform:rotate(45deg);color:var(--accent)}
+.project-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .24s ease}
+.project-panel-inner{overflow:hidden}
+.project-detail{padding:0 44px 18px 0}
+.project-detail p{
+  margin:0 0 11px;
+  color:#45423e;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:14px;
+  line-height:1.55;
+}
+.project-detail a{
+  display:inline-block;
+  color:var(--accent);
+  font-size:12px;
+  border-bottom:1px solid currentColor;
+  padding-bottom:2px;
+}
+.project-item.open .project-panel{grid-template-rows:1fr}
+@media(max-width:840px){
+  .home{grid-template-columns:1fr;padding:42px 0 58px;gap:46px}
+  .intro h1{max-width:640px}
+  .home-copy{max-width:650px}
+  .projects-panel{max-width:680px}
+}
+@media(max-width:520px){
+  .home{padding-top:34px}
+  .intro h1{font-size:38px}
+  .project-trigger{grid-template-columns:minmax(0,1fr) auto;gap:10px}
+  .project-year{display:none}
+  .project-detail{padding-right:28px}
+}
+</style>
+</head>
+<body>
+<!-- PAGE HEADER / NAVIGATION -->
+<header class="shell site-header">
+  <a class="site-name" href="index.html">Jack Murphy</a>
+  <nav class="site-nav" aria-label="Primary navigation">
+  <a href="resume.html" target="_blank" rel="noopener">Résumé</a>
+  </nav>
+</header>
+
+<main class="shell home">
+  <!-- ABOUT TEXT -->
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="section-chip">About</div>
+    <div class="home-copy">
+      <p>Hello! I'm Jack and I study mechanical engineering at UCLA. I am 
+        passionate about all aspects of engineering 
+        from the idea to the product and everything else in between.</p>
+
+      <p>A few notable projects of mine are listed on the right. 
+        They encompass thermal modeling, heat capacity testing, CAD, and 
+        composite engineering.</p>
+
+      <p>In my free time you can find me surfing, mountain biking, or skiing. 
+        I’m always excited to connect, so feel free to reach out!</p>
+        
+    </div>
+    <div class="home-links">
+      <a href="mailto:jackmurphyy@g.ucla.edu">Email</a>
+      <a href="https://www.linkedin.com/in/jacktmurphyy/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- PROJECT LIST -->
+  <section class="projects-panel" aria-labelledby="projects-title">
+    <div class="projects-heading">
+      <h2 id="projects-title">Selected projects</h2>
+      <span>Click to expand</span>
+    </div>
+    <div class="project-list">
+
+      <article class="project-item">
+        <button class="project-trigger" type="button" aria-expanded="false" aria-controls="project-thermal">
+          <span class="project-title">Thermal Simulation</span><span class="project-year">2026</span><span class="project-mark" aria-hidden="true">+</span>
+        </button>
+        <div class="project-panel" id="project-thermal"><div class="project-panel-inner"><div class="project-detail">
+          <p>Developing thermal model to assess GPU heat & power limitations</p>
+          <a href="projects/thermal-simulation.html">View project →</a>
+        </div></div></div>
+      </article>
+
+      <article class="project-item">
+        <button class="project-trigger" type="button" aria-expanded="false" aria-controls="project-cad">
+          <span class="project-title">CAD Development & Rendering</span><span class="project-year">2026</span><span class="project-mark" aria-hidden="true">+</span>
+        </button>
+        <div class="project-panel" id="project-cad"><div class="project-panel-inner"><div class="project-detail">
+          <p>Used SolidWorks, AI assisted python scripts and Blender to create 3D models</p>
+          <a href="projects/cad-workflow.html">View project →</a>
+        </div></div></div>
+      </article>
+
+      <article class="project-item">
+        <button class="project-trigger" type="button" aria-expanded="false" aria-controls="project-hydrofoil">
+          <span class="project-title">Hydrofoil Mast</span><span class="project-year">2026</span><span class="project-mark" aria-hidden="true">+</span>
+        </button>
+        <div class="project-panel" id="project-hydrofoil"><div class="project-panel-inner"><div class="project-detail">
+          <p>Hand-built carbon fiber hydrofoil mast using unidirectional and biaxial fabric</p>
+          <a href="projects/hydrofoil.html">View project →</a>
+        </div></div></div>
+      </article>
+
+      <article class="project-item">
+        <button class="project-trigger" type="button" aria-expanded="false" aria-controls="project-testing">
+          <span class="project-title">Heat Capacity Testing</span><span class="project-year">2025</span><span class="project-mark" aria-hidden="true">+</span>
+        </button>
+        <div class="project-panel" id="project-testing"><div class="project-panel-inner"><div class="project-detail">
+          <p>Calorimetry testing for Rondo Energy's heat battery</p>
+          <a href="projects/heat-capacity-testing.html">View project →</a>
+        </div></div></div>
+      </article>
+
+      <article class="project-item">
+        <button class="project-trigger" type="button" aria-expanded="false" aria-controls="project-cfd">
+          <span class="project-title">Introductory CFD</span><span class="project-year">2025</span><span class="project-mark" aria-hidden="true">+</span>
+        </button>
+        <div class="project-panel" id="project-cfd"><div class="project-panel-inner"><div class="project-detail">
+          <p>Downforce analysis of Formula 1 nose-cone using SolidWorks Flow Sim</p>
+          <a href="projects/cfd.html">View project →</a>
+        </div></div></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="shell site-footer"><span>© Jack Murphy 2026</span><span>Los Angeles / Bay Area</span></footer>
+<script>
+const items = document.querySelectorAll('.project-item');
+items.forEach((item) => {
+  const button = item.querySelector('.project-trigger');
+  button.addEventListener('click', () => {
+    const opening = !item.classList.contains('open');
+    items.forEach((other) => {
+      other.classList.remove('open');
+      other.querySelector('.project-trigger').setAttribute('aria-expanded', 'false');
+    });
+    if (opening) {
+      item.classList.add('open');
+      button.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+</script>
+</body>
+</html>
