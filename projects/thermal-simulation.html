@@ -283,12 +283,23 @@ img,svg{display:block;max-width:100%}
   <section class="project-description">
     <div class="section-label">Description</div>
     <div class="project-description-copy">
-      <p>Currently in the process of developing a thermal model to assess temperature 
-        and power limitations inside a GPU card. Some of the challenges I have encountered 
-        along the way include meshing thin, anisotropic materials and simplifying complex geometry such as  
-       the ball-grid-array package on the bottom of a GPU chip using equivalent conductances.</p>   
+      <p>Currently developing a thermal model to assess temperature and power limitations within a GPU card. 
+      Through this project, I have gained exposure to advanced thermal management techniques, including 
+      anisotropic materials, carbon nanotubes, vapor chambers, heat pipes, and both compliant and non-compliant Thermal Interface Materials (TIMs).</p>
+         
+         <p>Numerous parameter checks and sensitivity tests are run after each iteration to the model. This ensures the results are accurate and the model 
+            aligns with core engineering principles. A few of the verification checks include power generation sweeps, stress-testing with abnormally large 
+            convection coefficients, and mesh convergence studies.</p>  
+
+       <p>Modeling the actual card has also presented unique engineering challenges. One challenge included simplifying the complex ball-grid-array (BGA) on the 
+          bottom of a GPU. In short, the BGA package is a layer of thousands of solder balls that help connect the GPU chip to the printed circuit board (PCB). 
+          Simulating every single individual solder ball would be computationally overwhelming. To overcome this, the BGA package was simplified to a single plate 
+          with an 
+          equivalent conductance and thickness to make the computational load much smaller.</p>   
+
 
       <p> More to come soon</p>
+       
     </div>
   </section>
 </main>
