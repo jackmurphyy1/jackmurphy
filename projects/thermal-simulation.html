@@ -181,8 +181,13 @@ img,svg{display:block;max-width:100%}
    Change 4 to 3, 2, or another number.
    gap controls the spacing between photos.
    ========================================================= */
-.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 16px}
-.gallery-item{margin:0}
+/* Two wider columns make plots/screenshots readable instead of squeezing them. */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px 20px;
+}
+.gallery-item{margin:0;min-width:0}
 /* =========================================================
    PHOTO BORDER / PHOTO SHAPE
    border controls border thickness and color.
@@ -190,17 +195,16 @@ img,svg{display:block;max-width:100%}
    ========================================================= */
 .gallery-photo{
   position:relative;
-  aspect-ratio:10/16;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#e7e4de;
+  background:#fff;
 }
 /* =========================================================
    IMAGE FIT INSIDE THE PHOTO BORDER
    contain shows the whole image.
    cover fills the border but may crop the image.
    ========================================================= */
-.gallery-photo img{width:100%;height:100%;object-fit:cover}
+.gallery-photo img{width:100%;height:100%;object-fit:contain}
 .gallery-item figcaption{
   margin-top:7px;
   color:var(--muted);
@@ -226,6 +230,7 @@ img,svg{display:block;max-width:100%}
   .section-label{padding-top:0}
   .gallery-head{display:block}
   .gallery-head p{margin-top:8px}
+  .gallery-grid{grid-template-columns:1fr}
 }
 @media(max-width:540px){
   .project-top h1{font-size:41px}
@@ -254,7 +259,7 @@ img,svg{display:block;max-width:100%}
 }
 .gallery-photo img{
   object-fit:var(--photo-fit,contain) !important;
-  object-position:var(--photo-position,center) !important;
+  object-position:var(--photo-x,50%) var(--photo-y,50%) !important;
 }
 
 </style>
@@ -328,7 +333,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:50%; --photo-zoom:1.00;"><img src="../assets/TS/TS_1.png" alt=""></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-x:50%; --photo-y:50%;"><img src="../assets/TS/TS_1.png" alt=""></div>
         <!--<figcaption>Completed mast assembled with the foil hardware.</figcaption>-->
       </figure>
 
@@ -338,7 +343,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:50%; --photo-zoom:1.00;"><img src="../assets/TS/TS_2.png" alt=""></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-x:50%; --photo-y:50%;"><img src="../assets/TS/TS_2.png" alt=""></div>
       </figure>
 
       <figure class="gallery-item">
@@ -347,7 +352,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:50%; --photo-zoom:1.00;"><img src="../assets/TS/TS_3.png" alt=""></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-x:50%; --photo-y:50%;"><img src="../assets/TS/TS_3.png" alt=""></div>
       </figure>
 
       <figure class="gallery-item">
@@ -356,7 +361,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:50%; --photo-zoom:1.00;"><img src="../assets/TS/TS_4.png" alt=""></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-x:50%; --photo-y:50%;"><img src="../assets/TS/TS_4.png" alt=""></div>
       </figure>
 
       <figure class="gallery-item">
@@ -365,7 +370,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:50%; --photo-zoom:1.00;"><img src="../assets/TS/TS_5.png" alt=""></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-x:50%; --photo-y:50%;"><img src="../assets/TS/TS_5.png" alt=""></div>
       </figure>
              
     </div>
