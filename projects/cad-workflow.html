@@ -177,11 +177,17 @@ img,svg{display:block;max-width:100%}
 }
 /* =========================================================
    PHOTOS PER ROW
-   repeat(4, ...) means four photos per row.
-   Change 4 to 3, 2, or another number.
+   Three smaller photos per row on desktop.
+   The cards stay centered and keep a consistent 4:3 shape.
    gap controls the spacing between photos.
    ========================================================= */
-.gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 16px}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,280px));
+  justify-content:center;
+  align-items:start;
+  gap:18px 16px;
+}
 .gallery-item{margin:0}
 /* =========================================================
    PHOTO BORDER / PHOTO SHAPE
@@ -190,17 +196,19 @@ img,svg{display:block;max-width:100%}
    ========================================================= */
 .gallery-photo{
   position:relative;
-  aspect-ratio:16/10;
+  aspect-ratio:4 / 3;
   overflow:hidden;
   border:1px solid var(--line);
-  background:#e7e4de;
+  background:#fff;
+  display:grid;
+  place-items:center;
 }
 /* =========================================================
    IMAGE FIT INSIDE THE PHOTO BORDER
    contain shows the whole image.
    cover fills the border but may crop the image.
    ========================================================= */
-.gallery-photo img{width:100%;height:100%;object-fit:cover}
+.gallery-photo img{width:100%;height:100%;object-fit:contain;object-position:center}
 .gallery-item figcaption{
   margin-top:7px;
   color:var(--muted);
@@ -226,60 +234,28 @@ img,svg{display:block;max-width:100%}
   .section-label{padding-top:0}
   .gallery-head{display:block}
   .gallery-head p{margin-top:8px}
+  .gallery-grid{grid-template-columns:repeat(2,minmax(0,280px))}
 }
-@media(max-width:540px){
+@media(max-width:620px){
   .project-top h1{font-size:41px}
-  .gallery-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:minmax(0,280px)}
 }
 
 
-/* Preserve complete screenshots and size each image around its native shape. */
-.gallery-grid{align-items:start}
-.gallery-photo{
-  display:grid;
-  place-items:center;
-  background:#fff;
-}
-.gallery-photo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:center;
-}
-.gallery-item:nth-child(1) .gallery-photo{aspect-ratio:1120/962}
-.gallery-item:nth-child(2) .gallery-photo{aspect-ratio:1092/930}
-.gallery-item:nth-child(3) .gallery-photo{aspect-ratio:1086/920}
-.gallery-item:nth-child(4){grid-column:1/-1}
-.gallery-item:nth-child(4) .gallery-photo{aspect-ratio:1764/638}
-.gallery-item:nth-child(5){grid-column:1/-1;width:min(500px,100%);justify-self:center}
-.gallery-item:nth-child(5) .gallery-photo{aspect-ratio:764/1074}
-.gallery-item:nth-child(6){grid-column:1/-1;width:min(760px,100%);justify-self:center}
-.gallery-item:nth-child(6) .gallery-photo{aspect-ratio:1126/832}
 
 
 /* =========================================================
-   INDIVIDUAL PHOTO CONTROLS
+   PHOTO FIT CONTROLS
 
-   Each photo in the HTML has:
-   style="--photo-ratio:4 / 3;
-          --photo-fit:contain;
-          --photo-position:center;"
-
-   Common ratios:
-   1 / 1   = square
-   4 / 3   = landscape
-   16 / 9  = wide landscape
-   3 / 4   = portrait
-   9 / 16  = tall portrait
-
-   These rules let each photo use a different shape.
+   All gallery images use the same 4:3 card size and are shown
+   in full with object-fit:contain, so screenshots are never cropped.
    ========================================================= */
 .gallery-photo{
-  aspect-ratio:var(--photo-ratio,4 / 3) !important;
+  aspect-ratio:4 / 3 !important;
 }
 .gallery-photo img{
-  object-fit:var(--photo-fit,contain) !important;
-  object-position:var(--photo-position,center) !important;
+  object-fit:contain !important;
+  object-position:center !important;
 }
 
 </style>
@@ -337,7 +313,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:100%; --photo-zoom:0.7;"><img src="../assets/hydrofoil/H_13.png" alt="Completed hydrofoil mast assembled with foil hardware"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/hydrofoil/H_13.png" alt="Completed hydrofoil mast assembled with foil hardware"></div>
         <!--<figcaption>Completed mast assembled with the foil hardware.</figcaption>
       </figure>-->
 
@@ -348,7 +324,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:85%; --photo-zoom:1.16;"><img src="../assets/CR/CR_1.png" alt="Completed hydrofoil mast assembled with foil hardware"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_1.png" alt="Completed hydrofoil mast assembled with foil hardware"></div>
         <!--<figcaption>Completed mast assembled with the foil hardware.</figcaption>-->
       </figure>
 
@@ -358,7 +334,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:30%; --photo-y:80%; --photo-zoom:1.50;"><img src="../assets/CR/CR_2.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_2.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -367,7 +343,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:180%; --photo-zoom:1.30;"><img src="../assets/CR/CR_3.png" alt="Compression setup for the carbon fiber layup"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_3.png" alt="Compression setup for the carbon fiber layup"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -376,7 +352,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:100%; --photo-zoom:1.38;"><img src="../assets/CR/CR_4.png" alt="CNC router machining the project tooling"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_4.png" alt="CNC router machining the project tooling"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -385,7 +361,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:78%; --photo-zoom:1.16;"><img src="../assets/CR/CR_5.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_5.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -394,7 +370,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:76%; --photo-zoom:1.16;"><img src="../assets/CR/CR_6.png" alt="Compression setup for the carbon fiber layup"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_6.png" alt="Compression setup for the carbon fiber layup"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -403,7 +379,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:90%; --photo-zoom:1.10;"><img src="../assets/CR/CR_7.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_7.png" alt="Hydrofoil mast during finishing and alignment checks"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -412,7 +388,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:42%; --photo-zoom:1.3;"><img src="../assets/CR/CR_8.png" alt="Compression setup for the carbon fiber layup"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_8.png" alt="Compression setup for the carbon fiber layup"></div>
       </figure>
 
       <figure class="gallery-item">
@@ -421,7 +397,7 @@ img,svg{display:block;max-width:100%}
              Use --photo-fit:cover to remove black bars. Change --photo-y or --photo-zoom as needed.
              0% = top, 50% = center, 100% = bottom. Edit src="..." on the image to change the file.
         -->
-        <div class="gallery-photo" style="--photo-ratio:3 / 4; --photo-fit:cover; --photo-x:50%; --photo-y:46%; --photo-zoom:1.02;"><img src="../assets/CR/CR_9.png" alt="CNC router machining the project tooling"></div>
+        <div class="gallery-photo" style="--photo-ratio:4 / 3; --photo-fit:contain; --photo-position:center;"><img src="../assets/CR/CR_9.png" alt="CNC router machining the project tooling"></div>
       </figure>
       
 
@@ -435,3 +411,5 @@ img,svg{display:block;max-width:100%}
 <footer class="shell site-footer"><a href="../index.html#projects-title">← Selected projects</a><span>© Jack Murphy 2026</span></footer>
 </body>
 </html>
+cad-rendering-photo-formatting.html
+HTML
